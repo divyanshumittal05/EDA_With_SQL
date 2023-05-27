@@ -1,0 +1,345 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2707
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Show DataBases;\
+\
+Create DataBase Covid;\
+use Covid;\
+\
+-- Table Creation for Covid Vaccinations\
+CREATE OR REPLACE TABLE CovidVaccinations (\
+	iso_code VARCHAR(8) NOT NULL, \
+	continent VARCHAR(13), \
+	location VARCHAR(32) NOT NULL, \
+	date VARCHAR(8) NOT NULL, \
+	new_tests DECIMAL(38, 0), \
+	total_tests DECIMAL(38, 0), \
+	total_tests_per_thousand DECIMAL(38, 3), \
+	new_tests_per_thousand DECIMAL(38, 3), \
+	new_tests_smoothed DECIMAL(38, 0), \
+	new_tests_smoothed_per_thousand DECIMAL(38, 3), \
+	positive_rate DECIMAL(38, 3), \
+	tests_per_case DECIMAL(38, 1), \
+	tests_units VARCHAR(15), \
+	total_vaccinations DECIMAL(38, 0), \
+	people_vaccinated DECIMAL(38, 0), \
+	people_fully_vaccinated DECIMAL(38, 0), \
+	new_vaccinations DECIMAL(38, 0), \
+	new_vaccinations_smoothed DECIMAL(38, 0), \
+	total_vaccinations_per_hundred DECIMAL(38, 2), \
+	people_vaccinated_per_hundred DECIMAL(38, 2), \
+	people_fully_vaccinated_per_hundred DECIMAL(38, 2), \
+	new_vaccinations_smoothed_per_million DECIMAL(38, 0), \
+	stringency_index DECIMAL(38, 2), \
+	population_density DECIMAL(38, 3), \
+	median_age DECIMAL(38, 1), \
+	aged_65_older DECIMAL(38, 3), \
+	aged_70_older DECIMAL(38, 3), \
+	gdp_per_capita DECIMAL(38, 3), \
+	extreme_poverty DECIMAL(38, 1), \
+	cardiovasc_death_rate DECIMAL(38, 3), \
+	diabetes_prevalence DECIMAL(38, 2), \
+	female_smokers DECIMAL(38, 3), \
+	male_smokers DECIMAL(38, 3), \
+	handwashing_facilities DECIMAL(38, 3), \
+	hospital_beds_per_thousand DECIMAL(38, 3), \
+	life_expectancy DECIMAL(38, 2), \
+	human_development_index DECIMAL(38, 3)\
+);\
+\
+-- Table Creation of Covid Deaths\
+CREATE OR REPLACE TABLE CovidDeaths (\
+	iso_code VARCHAR(8) NOT NULL, \
+	continent VARCHAR(13), \
+	location VARCHAR(32) NOT NULL, \
+	date VARCHAR(8) NOT NULL, \
+	total_cases DECIMAL(38, 0), \
+	new_cases DECIMAL(38, 0), \
+	new_cases_smoothed DECIMAL(38, 3), \
+	total_deaths DECIMAL(38, 0), \
+	new_deaths DECIMAL(38, 0), \
+	new_deaths_smoothed DECIMAL(38, 3), \
+	total_cases_per_million DECIMAL(38, 3), \
+	new_cases_per_million DECIMAL(38, 3), \
+	new_cases_smoothed_per_million DECIMAL(38, 3), \
+	total_deaths_per_million DECIMAL(38, 3), \
+	new_deaths_per_million DECIMAL(38, 3), \
+	new_deaths_smoothed_per_million DECIMAL(38, 3), \
+	reproduction_rate DECIMAL(38, 2), \
+	icu_patients DECIMAL(38, 0), \
+	icu_patients_per_million DECIMAL(38, 3), \
+	hosp_patients DECIMAL(38, 0), \
+	hosp_patients_per_million DECIMAL(38, 3), \
+	weekly_icu_admissions DECIMAL(38, 3), \
+	weekly_icu_admissions_per_million DECIMAL(38, 3), \
+	weekly_hosp_admissions DECIMAL(38, 3), \
+	weekly_hosp_admissions_per_million DECIMAL(38, 3), \
+	new_tests DECIMAL(38, 0), \
+	total_tests DECIMAL(38, 0), \
+	total_tests_per_thousand DECIMAL(38, 3), \
+	new_tests_per_thousand DECIMAL(38, 3), \
+	new_tests_smoothed DECIMAL(38, 0), \
+	new_tests_smoothed_per_thousand DECIMAL(38, 3), \
+	positive_rate DECIMAL(38, 3), \
+	tests_per_case DECIMAL(38, 1), \
+	tests_units VARCHAR(15), \
+	total_vaccinations DECIMAL(38, 0), \
+	people_vaccinated DECIMAL(38, 0), \
+	people_fully_vaccinated DECIMAL(38, 0), \
+	new_vaccinations DECIMAL(38, 0), \
+	new_vaccinations_smoothed DECIMAL(38, 0), \
+	total_vaccinations_per_hundred DECIMAL(38, 2), \
+	people_vaccinated_per_hundred DECIMAL(38, 2), \
+	people_fully_vaccinated_per_hundred DECIMAL(38, 2), \
+	new_vaccinations_smoothed_per_million DECIMAL(38, 0), \
+	stringency_index DECIMAL(38, 2), \
+	population DECIMAL(38, 0), \
+	population_density DECIMAL(38, 3), \
+	median_age DECIMAL(38, 1), \
+	aged_65_older DECIMAL(38, 3), \
+	aged_70_older DECIMAL(38, 3), \
+	gdp_per_capita DECIMAL(38, 3), \
+	extreme_poverty DECIMAL(38, 1), \
+	cardiovasc_death_rate DECIMAL(38, 3), \
+	diabetes_prevalence DECIMAL(38, 2), \
+	female_smokers DECIMAL(38, 3), \
+	male_smokers DECIMAL(38, 3), \
+	handwashing_facilities DECIMAL(38, 3), \
+	hospital_beds_per_thousand DECIMAL(38, 3), \
+	life_expectancy DECIMAL(38, 2), \
+	human_development_index DECIMAL(38, 3)\
+);\
+\
+-- Accessing the Data\
+select * from CovidVaccinations;\
+select * from CovidDeaths;\
+\
+-- How Many Country Data We Have\
+Select Count(Distinct(iso_code)) as Total_Country From CovidVaccinations;\
+\
+-- How Many Region Data We Have\
+Select Count(Distinct(continent)) as Total_Region From CovidVaccinations;\
+Select Distinct(continent) as Region From CovidVaccinations;\
+\
+-- Region Is Null \
+Select * From CovidVaccinations Where continent is null;\
+select Count(*) Total_Rows From CovidVaccinations Where continent is null;\
+\
+-- Locations\
+Select Distinct(Location) from CovidVaccinations ;\
+\
+-- Take out some Columns\
+Select Continent,Location,Date,Total_Cases,New_Cases,Total_Deaths,Population\
+From CovidDeaths;\
+\
+-- Total Cases Vs Total Death\
+Select Location,Date,Total_Cases,Total_Deaths,Round(Total_Deaths/Total_Cases,2)*100 as Death_Percentage\
+From CovidDeaths;\
+\
+-- Total Case Vs Total Population\
+Select Location,Date,Total_Cases,Population,(Total_Cases/Population)*100 as Total_Case_Percentage\
+From CovidDeaths;\
+\
+-- Look at the Highest Case and Death For Every Country\
+Select Location, Max(Total_Cases) as Total_case, Max(Total_Deaths) as Total_Deaths, Max(Population) as Population\
+From CovidDeaths\
+Group BY 1\
+Order by 2,3 desc;\
+\
+-- Chechinkg For Those Country Which Have Covid Cases -- Also Represent Which Country Have Highest Covid Case \
+-- By Using This Query We Can Find Out Top 10 Country Which Have Highest Covid Cases\
+Select a.*\
+From(Select Location, Max(Total_Cases) as Total_case, Max(Total_Deaths) as Total_Deaths, Max(Population) as Population\
+     From CovidDeaths\
+     Group BY 1\
+     Order by 2,3 desc) a\
+Where a.Total_case is not null and a.Total_Deaths is not null\
+order by Total_Case desc; \
+\
+-- Region Wise \
+select a.Continent,Sum(Total_case) as Total_Case,Sum(Total_Deaths) as Total_Death,Sum(Population) as Total_Population\
+From (Select Location,Continent, Max(Total_Cases) as Total_case, Max(Total_Deaths) as Total_Deaths, Max(Population) as Population\
+      From CovidDeaths\
+      Group BY 1,2\
+      Order by 2,3 desc) a\
+Group by 1;\
+\
+-- Changing the length of Date Column\
+Alter Table CovidDeaths\
+Modify Date Varchar(12);\
+\
+-- Update The Date Column\
+Update CovidDeaths\
+set Date = to_date(Date,'DD/MM/YY');\
+\
+-- Change The Data Type Of The Date Column\
+  \
+  -- 1.For This First We Add A New-Column\
+Alter Table CovidDeaths\
+Add Column Date1 Date;\
+  \
+  --2. Now Copy The Value Of Old Column into New Column\
+Update CovidDeaths\
+set Date1 = Date;\
+\
+  -- 3.Checking For Values Are Updated Or Not\
+select * from CovidDeaths;\
+\
+  -- 4. Drop The Old Column\
+Alter Table CovidDeaths\
+Drop Date;\
+\
+  -- Chage The Col Name\
+Alter Table CovidDeaths\
+Rename Column Date1 to Date;\
+\
+-- Take Out Some Specific Columns\
+Create view Covid_data as (Select Continent,Location,Date,New_Cases,New_Deaths,Population\
+From CovidDeaths);\
+\
+-- Accessing the view\
+select * from Covid_data;\
+\
+-- Extract The Month And Year From The Data\
+select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year\
+From Covid_data;\
+\
+-- Calculating Total Death And Total Case In Year 2020 And 2021 Country Wise\
+\
+-- Year 2020\
+select a.Location, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Where Year = 2020 \
+Group By 1;\
+\
+-- Year 2021\
+select a.Location, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Where Year = 2021 \
+Group By 1;\
+\
+-- Now Calculatiing The Total Death And Total Case Region Wise \
+\
+-- In Year 2020\
+select a.Continent, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Where Year = 2020\
+Group By 1;\
+\
+-- In Year 2021\
+select a.Continent, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Where Year = 2021\
+Group By 1;\
+\
+-- Total Case and Total Death Month Wise In Country\
+select a.Location,Month, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Group By 1,2;\
+\
+-- Total Case and Total Death Month Wise In Region\
+select a.Continent,Month, Sum(New_Cases)as Total_case, Sum(New_Deaths)as Total_Death \
+From (select *, Extract(Month from Date) as Month, Extract(Year From Date) as Year From Covid_data) a\
+Group By 1,2;\
+\
+-- Observe the Data\
+select * from CovidDeaths;\
+\
+-- Selecting Some Columns \
+Select Continent,Location,Date,People_Vaccinated,People_Fully_Vaccinated,New_Vaccinations\
+From CovidDeaths;\
+\
+-- Total Fully Vaccinated People and Partial People Vaccinated (Take Some Dose Of Vaccine like 1st dose) Country Wise\
+-- As we Know The There Three Round Of Vacination in india \
+-- So Fully Vaccinated Means Those People Who Take All Does \
+\
+Select Location, Sum(People_Vaccinated) as Partial_vaccinated, Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From CovidDeaths\
+Group By 1;\
+\
+-- Total Fully Vaccinated People and Partial People Vaccinated (Take Some Dose Of Vaccine like 1st dose) Region Wise\
+Select Continent, Sum(People_Vaccinated) as Partial_vaccinated, Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From CovidDeaths\
+Group By 1;\
+\
+-- Year Wise -- 2020\
+Select a.Location,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2020\
+Group by 1\
+Order By 2,3;\
+\
+-- Those Country Who Start There Vaccination In Year 2020\
+Select b.Location\
+From(Select a.Location,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2020\
+Group by 1\
+Order By 2,3) b\
+Where Partial_vaccinated is not null;\
+\
+-- Year Wise -- 2021\
+Select a.Location,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2021\
+Group by 1\
+Order By 2,3;\
+\
+-- Those Country Who Start There Vaccination In Year 2021\
+Select b.Location\
+From(Select a.Location,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2021\
+Group by 1\
+Order By 2,3) b\
+Where Partial_vaccinated is not null;\
+\
+\
+-- Month Wise Vaccination In Every Country\
+Select a.Location,Month,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Group by 1,2\
+Order By 3,4;\
+\
+-- Month Wise Vaccination In Every Country In  Year 2020\
+Select a.Location,Month,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2020\
+Group by 1,2\
+Order By 3,4;\
+\
+-- Month Wise Vaccination In Every Country In  Year 2021\
+Select a.Location,Month,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Location,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2021\
+Group by 1,2\
+Order By 3,4;\
+\
+\
+-- Month Wise Vaccination Region Wise\
+Select a.Continent,Month,Sum(People_Vaccinated) as Partial_vaccinated,Sum(People_Fully_Vaccinated) as Fully_Vaccinated\
+From (Select Continent,People_Vaccinated, People_Fully_Vaccinated, Extract(Year From Date) as Year, Extract (Month From Date) as Month\
+From CovidDeaths) a\
+Where Year = 2020\
+Group by 1,2\
+Order By 3,4;\
+\
+-- Selecting The Columns For Visualization Part\
+select * from CovidDeaths;\
+\
+Select ISO_CODE,CONTINENT,LOCATION,Date,TOTAL_CASES,Total_Deaths,Total_Tests,Total_Vaccinations,Population\
+From CovidDeaths;\
+\
+Select ISO_CODE,CONTINENT,LOCATION,Date,New_Cases,New_Deaths,New_Tests,New_Vaccinations,Population\
+From CovidDeaths;}
